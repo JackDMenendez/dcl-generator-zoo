@@ -1,17 +1,51 @@
 % reproducibility.tex
 \label{sec:reproducibility}
 
-\placeholder{Compact reproducibility quickstart. Goal: a reader who has
-just cloned the repository at the release tag can reproduce the
-paper's headline claim in under five minutes.
-
-Suggested structure:
 \begin{itemize}
-\item \textbf{Environment.} Operating system, language version, key
-      dependencies (point to the manifest file rather than re-listing).
-\item \textbf{Build the paper.} The commands needed from a fresh clone.
-\item \textbf{Verify the headline result.} A minimal snippet --- ideally
-      under ten lines --- that re-derives the central numerical claim.
-\item \textbf{Where to look next.} Pointers to the experiment scripts
-      and data files for deeper checks.
-\end{itemize}}
+\item \textbf{Environment.}  Python~3 with \texttt{sympy},
+      \texttt{numpy}, \texttt{matplotlib}, \texttt{pytest}.
+      Exact dependency list in \texttt{virtual-env-requirements.txt}.
+      The \texttt{setup.sh} / \texttt{setup.cmd} scripts create a
+      \texttt{.venv} and install everything.
+
+\item \textbf{Build the paper.}  From a fresh clone, with the venv
+      activated:
+      \begin{verbatim}
+./build.sh paper        # POSIX / MSYS2 UCRT64 on Windows
+build.cmd paper         # Windows cmd / PowerShell
+      \end{verbatim}
+      runs \texttt{pdflatex} three times and \texttt{bibtex} once,
+      producing \texttt{paper/main.pdf}.
+
+\item \textbf{Verify the headline result.}  The two inherited
+      Paper~II scripts together reproduce every \texttt{PASS} row
+      in Table~\ref{tab:audit}:
+      \begin{verbatim}
+python -u src/utilities/automorphism_centralizer_extended.py
+python -u src/utilities/aut_centralizer_extras_commutators.py
+      \end{verbatim}
+      Each prints a structured report ending in either ``\texttt{PASS}''
+      or a count-mismatch error.  Total runtime: a few minutes.
+
+\item \textbf{Run the master audit roll-up.}  From the repo root:
+      \begin{verbatim}
+python audit_universe.py
+      \end{verbatim}
+      parses \texttt{paper/sections/audit\_table.tex} and reports
+      the declared status of every row.  Rows whose evidence is
+      analytical (script output cited as
+      \texttt{src/utilities/*.py}) are reported as-is.
+
+\item \textbf{Where to look next.}  The four notes under
+      \texttt{notes/} (each prefixed with a Provenance block)
+      provide the textual companion to the algebraic results.
+      Start with \texttt{notes/aut\_centralizer\_enumeration.md}
+      for the structural identification of the 71-dim centralizer
+      as $\mathfrak{su}(6)_+ \oplus \mathfrak{su}(6)_- \oplus
+      \mathfrak{u}(1)$; then
+      \texttt{notes/aut\_centralizer\_extras\_commutators.md}
+      for the bracket-classification reading; then (DRAFT)
+      \texttt{notes/extras\_as\_a1\_accounting.md} for the
+      conjectural decoherence-as-projection physical
+      interpretation.
+\end{itemize}

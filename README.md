@@ -1,119 +1,148 @@
-# Paper + Experiment Template (full-stack)
+# dcl-generator-zoo
 
-A starting scaffold for a research paper that ships with companion
-numerical experiments, derived from the *Geometry First* (A=1
-Discrete Causal Lattice) project's infrastructure. Use this when the
-paper's claims are operationally defined by code that runs and
-produces verifiable output. For pure-theory papers without
-experiments, use the paper-only sibling template instead.
+A catalogue of the 71-dimensional per-site automorphism algebra of
+the A=1 Discrete Causal Lattice.
 
-## Click "Use this template" on GitHub
+Phase~3 of Paper~II of the A=1 Discrete Causal Lattice series
+([doi:10.5281/zenodo.20240736](https://doi.org/10.5281/zenodo.20240736))
+established that the discrete-Hermitian centralizer of the
+bipartite tick rule on the per-site $\mathbb{C}^{12} =
+\mathbb{C}^2_\text{chir} \otimes \mathbb{C}^2_\text{iso} \otimes
+\mathbb{C}^3_\text{col}$ amplitude has dimension 71, structurally
+$\mathfrak{su}(6)_+ \oplus \mathfrak{su}(6)_- \oplus \mathfrak{u}(1)$.
+The 12-dimensional Standard Model gauge subalgebra sits inside
+this centralizer as a non-normal subgroup, and the 59-generator
+complement (the "extras") transforms under $SU(3) \times SU(2)$ as
+$(\mathbf{8}, \mathbf{3})$ leptoquark-flavoured plus chirality-
+$\sigma_x$-twisted SM-flavoured.
 
-This repo is configured as a GitHub Template Repository. From the
-GitHub web UI on the template's page, click **Use this template ->
-Create a new repository**, then `git clone` the new repo locally.
+This zoo turns those 71 generators into a navigable catalogue:
+each generator gets a stable name, an $(SU(3), SU(2))$ irrep tag,
+a tensor-factor action tag, and a bracket-class classification
+against every other generator.  The catalogue is emitted as
+machine-readable JSON for downstream consumption and as a
+printable \LaTeX{} longtable for human reference.
+
+The intent is that follow-on papers in the A=1 series, and
+external researchers building on the framework, can refer to
+specific generators by name rather than re-deriving them.
+
+## Status: v0.1-DRAFT (2026-05-16)
+
+What is in place:
+
+- The two load-bearing centralizer enumeration scripts are
+  reproduced verbatim from Paper~II in `src/utilities/`.
+- Four supporting notes from Paper~II are reproduced with
+  Provenance prefixes in `notes/`.
+- The zoo's catalogue extension layer
+  (`src/utilities/generator_zoo.py`) is written and ready to run.
+  It builds the 71-generator catalogue with stable names + irrep
+  tags + factor-action tags, classifies all 2485 brackets, and
+  emits `data/generator_catalogue.json` plus
+  `paper/sections/generator_zoo_table.tex`.
+- A paper skeleton (title page, abstract, introduction, audit
+  table, generator-zoo appendix, references) is in place.  The
+  conclusion and acknowledgements sections retain template
+  placeholders pending v1.0.
+
+What is pending (next session): user runs the catalogue script
+end-to-end, commits the emitted JSON + LaTeX, flips the relevant
+audit-table rows from `PART` to `PASS`, and deposits v1.0 on
+Zenodo for a citeable DOI.  See `CLAUDE.md` for the full status
+block.
+
+## Upstream
+
+This zoo builds on:
+
+- **Paper~I, *Geometry First*** -- the bipartite octahedral
+  lattice, the $\mathcal{A}=1$ conservation axiom, the per-site
+  $\mathbb{C}^{12}$ extension.
+  [doi:10.5281/zenodo.20078529](https://doi.org/10.5281/zenodo.20078529).
+- **Paper~II, *Geometry Forces Physics*** -- the centralizer
+  enumeration and bracket-classification that the zoo catalogues.
+  [doi:10.5281/zenodo.20240736](https://doi.org/10.5281/zenodo.20240736).
+
+Both deposits are in the
+[`a1-discrete-causal-lattice`](https://zenodo.org/communities/a1-discrete-causal-lattice/)
+Zenodo community, to which the zoo's v1.0 will also be added.
 
 ## What you get
 
-```
+```text
 .
-+-- paper/                        (LaTeX paper -- same shell as the paper-only template)
-|   +-- main.tex                 -- title page, front matter, section wiring
-|   +-- macros/                  -- packages.tex, commands.tex
-|   +-- sections/                -- placeholders + 1 exemplar (introduction.tex)
-|   |   +-- audit_table.tex      -- longtable seed, two example rows
-|   +-- figures/                 -- example_figure.tex fragment + README
-|   +-- paper-bib/references.bib -- BibTeX seed
-+-- src/
-|   +-- core/                    -- framework primitives (README only)
-|   +-- experiments/             -- one exemplar (exp_00_example.{py,md})
-|   |   +-- README.md            -- conventions
-|   |   +-- EXPERIMENTS.md       -- index of experiments
-|   |   +-- makefile             -- per-experiment make targets
-|   +-- utilities/               -- figure generators, verification scripts
-+-- tests/
-|   +-- test_example.py          -- exemplar pytest unit test
-+-- data/
-|   +-- README.md                -- data-file conventions
-+-- notes/                        -- working theoretical notes
-+-- release_notes/                -- per-version change log + Release body
-+-- .claude/agents/claim-auditor.md  -- read-only audit agent
-+-- audit_universe.py             -- master PASS/STUB/FAIL audit (parses audit_table.tex + data/*.log)
-+-- audit_universe.md             -- companion doc explaining the audit model
-+-- virtual-env-requirements.txt  -- Python dependencies (read by make env and by the wcde repo-setup.sh bootstrap)
-+-- CLAUDE.md                     -- project memory for Claude Code
-+-- CITATION.cff                  -- machine-readable citation
-+-- LICENSE                       -- MIT
-+-- makefile common.mak           -- root build (paper + tests + experiments)
-+-- build.sh build.cmd            -- platform wrappers around make
-+-- setup.sh setup.cmd            -- create venv + install requirements
-+-- .gitignore .gitattributes .gitmessage
+├── paper/                       (LaTeX paper: catalogue + introduction)
+│   ├── main.tex
+│   ├── macros/
+│   ├── sections/                introduction.tex, audit_table.tex,
+│   │                            abstract.tex, ... (catalogue appendix
+│   │                            generator_zoo.tex pending Phase 2)
+│   ├── figures/
+│   └── paper-bib/references.bib
+├── src/
+│   ├── utilities/               automorphism_centralizer_extended.py,
+│   │                            aut_centralizer_extras_commutators.py
+│   │                            (inherited verbatim from Paper II),
+│   │                            generator_zoo.py (catalogue extension)
+│   ├── core/                    framework primitives (README only for now)
+│   └── experiments/             (none yet; placeholder)
+├── tests/                       pytest scaffolding
+├── data/                        catalogue output (JSON) lands here
+├── notes/                       four inherited Paper II notes, prefixed
+│                                with Provenance blocks
+├── release_notes/               per-version change log
+├── .claude/agents/claim-auditor.md  read-only audit agent
+├── audit_universe.py            master PASS/STUB/FAIL roll-up
+├── audit_universe.md            audit-model documentation
+├── virtual-env-requirements.txt sympy + numpy + matplotlib + pytest
+├── CLAUDE.md                    project memory for Claude Code
+├── CITATION.cff                 machine-readable citation
+├── LICENSE                      MIT (code) / CC BY 4.0 (paper text)
+├── makefile common.mak          root build (paper + tests + experiments)
+├── build.{sh,cmd}               platform wrappers around make
+└── setup.{sh,cmd}               create venv + install requirements
 ```
 
-## First steps after creating your repo
+## Quickstart
 
-1. **Search-and-replace the placeholders** in:
-   - `paper/main.tex` -- title, author, ORCID, email, repo URL
-   - `paper/macros/packages.tex` -- pdftitle, pdfauthor, pdfsubject,
-     pdfkeywords
-   - `CITATION.cff` -- title, author, ORCID, repo URL
-   - `LICENSE` -- year and copyright holder
-   - `CLAUDE.md` -- short title, current status block
-   - `README.md` (this file) -- replace with your project's own README
-2. **Set up the environment** (creates `.venv`, installs requirements):
-   ```sh
-   ./setup.sh                  # POSIX / MSYS2 UCRT64 on Windows
-   setup.cmd                   # Windows cmd / PowerShell
-   ```
-3. **Sanity-check the toolchain**:
-   ```sh
-   ./build.sh tests            # pytest against tests/
-   ./build.sh paper            # pdflatex 3-pass + bibtex
-   python -u src/experiments/exp_00_example.py
-   python audit_universe.py    # PASS/STUB/FAIL roll-up
-   ```
-4. **Replace the exemplars** with the first real piece of the paper:
-   - the introduction (`paper/sections/introduction.tex`)
-   - the first experiment (`src/experiments/exp_00_example.{py,md}`)
-   - the audit-table rows in `paper/sections/audit_table.tex`
-5. **Each new experiment** gets three things in lock-step: a row in
-   `paper/sections/audit_table.tex`, a `.py` script + `.md` companion
-   doc in `src/experiments/`, and an entry in `audit_universe.py` and
-   `src/experiments/EXPERIMENTS.md`. The `claim-auditor` agent under
-   `.claude/agents/` flags prose that drifts out of sync with the
-   audit table.
-
-## Build requirements
-
-- GNU Make >= 4.3 (the stock Windows port is too old; on Windows use
-  MSYS2 UCRT64 with `pacman -S make`).
-- Python 3 with `venv` (created by `setup.sh` / `setup.cmd`).
-- `pdflatex` + `bibtex` (TeX Live or MiKTeX).
-
-## Running experiments
-
-A single experiment:
 ```sh
-python -u src/experiments/exp_00_example.py
-```
+# 1. Create the venv and install dependencies (sympy + numpy + ...)
+./setup.sh                       # POSIX / MSYS2 UCRT64 on Windows
+setup.cmd                        # Windows cmd / PowerShell
 
-The whole suite, with PASS/STUB/FAIL summary:
-```sh
+# 2. Sanity-check the toolchain
+./build.sh tests                 # pytest against tests/
+./build.sh paper                 # pdflatex 3-pass + bibtex
+
+# 3. Reproduce the inherited Paper II Phase 3 results
+python -m src.utilities.automorphism_centralizer_extended
+python -m src.utilities.aut_centralizer_extras_commutators
+
+# 4. Build the zoo catalogue (writes data/generator_catalogue.json
+#    and paper/sections/generator_zoo_table.tex; ~5-15 min runtime)
+python -m src.utilities.generator_zoo
+
+# 5. Master audit roll-up
 python audit_universe.py
 ```
-
-The `make experiments` target delegates to `src/experiments/makefile`
-where individual targets (`make -C src/experiments exp_NN`) are wired
-up. Many experiments take hours to days to run -- prefer named
-targets to the suite-level `all`.
-
-## Release flow
-
-See `release_notes/README.md`. Short version: deposit on Zenodo
-first to get the DOI, *then* commit the version bump. The DOI is part
-of the title-page `\thanks{}` block and `CITATION.cff`.
 
 ## License
 
 Paper text and figures: CC BY 4.0.
-Source (this scaffolding): MIT (see `LICENSE`).
+Source (the catalogue scripts and infrastructure): MIT
+(see `LICENSE`).
+
+## Citing this catalogue
+
+See `CITATION.cff`.  Until the v1.0 Zenodo DOI is assigned, cite
+as:
+
+> Menendez, J. (2026).  *dcl-generator-zoo: A Catalogue of the
+> 71-Dimensional Per-Site Automorphism Algebra of the A=1 Discrete
+> Causal Lattice*, v0.1-DRAFT.  GitHub:
+> `JackDMenendez/dcl-generator-zoo`.
+
+Once v1.0 is deposited on Zenodo, the DOI will be added to
+`CITATION.cff` and to `paper/main.tex`'s title-page `\thanks{}`
+block.

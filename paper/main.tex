@@ -16,55 +16,64 @@
 %% ---------------------------------------------------------------
 %% TITLE PAGE
 %% ---------------------------------------------------------------
-%% TODO: replace title, subtitle, author, ORCID, email.
-%% TODO: at release time, fill in the \thanks{} block with version,
-%%       Zenodo DOI, GitHub URL, and any series identifier.
 
-\title{Your Paper Title:\\
-       Optional Subtitle on a Second Line%
-       \thanks{Version 0.1-DRAFT.
-       %% Fill in at release time:
-       %% \href{https://doi.org/10.5281/zenodo.XXXXXXXX}%
-       %%      {DOI: 10.5281/zenodo.XXXXXXXX}.
-       %% \href{https://github.com/USER/REPO}%
-       %%      {GitHub: USER/REPO}.
-       Pre-release draft; DOI to be assigned.}}
-\author{Author Name\\
-        \small City, State\\
-        \small ORCID: \href{https://orcid.org/0000-0000-0000-0000}{0000-0000-0000-0000}\\
-        \small \href{mailto:author@example.com}{author@example.com}}
+\title{The dcl-generator-zoo:\\
+       A Catalogue of the 71-Dimensional Per-Site\\
+       Automorphism Algebra of the A=1 Discrete Causal Lattice%
+       \thanks{Version 0.1-DRAFT.  Companion artifact to the A=1
+       Discrete Causal Lattice series; built on the Phase~3
+       centralizer enumeration of
+       \emph{Geometry Forces Physics} (Paper~II,
+       \href{https://doi.org/10.5281/zenodo.20240736}{DOI:
+       10.5281/zenodo.20240736}), which itself builds on
+       \emph{Geometry First} (Paper~I,
+       \href{https://doi.org/10.5281/zenodo.20078529}{DOI:
+       10.5281/zenodo.20078529}).  This catalogue is intended as
+       the canonical reference for downstream papers in the series
+       and for external work building on the framework's per-site
+       algebraic structure.  DOI for this catalogue to be assigned
+       at v1.0 deposit.}}
+\author{Jack Menendez\\
+        \small Eugene, OR\\
+        \small ORCID: \href{https://orcid.org/0009-0003-1166-307X}{0009-0003-1166-307X}\\
+        \small \href{mailto:jackdmenendez@gmail.com}{jackdmenendez@gmail.com}}
 \date{\today}
 
 \begin{document}
 
 \maketitle
 
+\begin{abstract}
+    \input{sections/abstract}
+\end{abstract}
+
 %% ---------------------------------------------------------------
-%% FRONT-MATTER NOTICES
+%% FRONT-MATTER NOTICES (after abstract per author preference)
 %% ---------------------------------------------------------------
+
+\medskip
+\noindent\textbf{Keywords.}  A=1 Discrete Causal Lattice; per-site
+automorphism algebra; centralizer; $\mathfrak{su}(6)$; Standard
+Model gauge group; leptoquark; chirality; bracket structure; broken
+symmetry; sympy verification.
+
+\medskip
 \noindent\textbf{License.}  Paper text and figures: Creative Commons
 Attribution 4.0 (CC BY 4.0).  Source code in the companion
 repository: MIT License.
 
 \medskip
-\noindent\textbf{Data availability.}  Numerical experiments, data
-files, and the LaTeX source for this paper are publicly available at
-\href{https://github.com/USER/REPO}%
-     {\nolinkurl{github.com/USER/REPO}}.
-%% At release time, point to the tag and the Zenodo DOI:
-%% The exact commit corresponding to this release is the vX.Y tag,
-%% archived at
-%% \href{https://doi.org/10.5281/zenodo.XXXXXXXX}%
-%%      {\nolinkurl{doi:10.5281/zenodo.XXXXXXXX}}.
-
-\medskip
-\noindent\textbf{Keywords.}  keyword one; keyword two; keyword three.
-
-\newpage
-
-\begin{abstract}
-    \input{sections/abstract}
-\end{abstract}
+\noindent\textbf{Data availability.}  The catalogue, its
+verification scripts, and the \LaTeX{} source for this document are
+publicly available at the GitHub repository
+\nolinkurl{github.com/JackDMenendez/dcl-generator-zoo}.  The
+load-bearing centralizer enumeration scripts
+\nolinkurl{automorphism_centralizer_extended.py} and
+\nolinkurl{aut_centralizer_extras_commutators.py} were introduced
+in Paper~II~\cite{menendez2026sm} and are reproduced here verbatim
+as inherited evidence; the zoo's own enumeration script
+\nolinkurl{generator_zoo.py} (planned for v1.0) extends them with
+stable naming, irrep tagging, and JSON / \LaTeX{} rendering.
 
 %% ---------------------------------------------------------------
 %% RELEASE NOTES (only at release time)
@@ -73,7 +82,6 @@ files, and the LaTeX source for this paper are publicly available at
 %% \noindent\textbf{Release notes for vX.Y (since vX.Y-1).}
 %% \begin{itemize}
 %% \item Item 1.
-%% \item Item 2.
 %% \end{itemize}
 
 %% \emph{Status legend used throughout.}  \texttt{PASS} / \texttt{PART}
@@ -84,17 +92,18 @@ files, and the LaTeX source for this paper are publicly available at
 \newpage
 
 %% ============================================================
-%% PART I: <name>
+%% MAIN
 %% ============================================================
 \section{Introduction}
 \input{sections/introduction}
 
-\section{A Section Showing the Patterns}
-\input{sections/section_template}
-
-%% Add more \section{...} \input{sections/...} blocks as needed.
-%% Group with comment dividers (e.g., "PART II: DYNAMICS") to keep
-%% main.tex skimmable as the paper grows.
+%% Future sections (Phase~2 of this catalogue):
+%%   \section{Naming convention}
+%%   \section{Tensor-factor action tags}
+%%   \section{Representation-theoretic content}
+%%   \section{Bracket-class lookup}
+%%   \section{JSON emit and downstream consumption}
+%%   \section{Generator zoo} (the catalogue appendix proper)
 
 \section{Conclusion}
 \input{sections/conclusion}
@@ -106,6 +115,9 @@ files, and the LaTeX source for this paper are publicly available at
 %% APPENDICES
 %% ============================================================
 \appendix
+
+\section{Generator Zoo}
+\input{sections/generator_zoo}
 
 \section{Code and Data}
 \input{sections/code_and_data}

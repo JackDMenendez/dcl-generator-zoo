@@ -1,14 +1,31 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
-title: "Your Paper Title"
+message: "If you use this catalogue, please cite it as below."
+title: "dcl-generator-zoo: A Catalogue of the 71-Dimensional Per-Site Automorphism Algebra of the A=1 Discrete Causal Lattice"
 authors:
-  - family-names: Lastname
-    given-names: Firstname
-    orcid: "https://orcid.org/0000-0000-0000-0000"
-    affiliation: "Affiliation"
+  - family-names: Menendez
+    given-names: Jack
+    orcid: "https://orcid.org/0009-0003-1166-307X"
+    affiliation: "Independent Scholar (Eugene, OR)"
 version: v0.1-DRAFT
-date-released: YYYY-MM-DD
+date-released: 2026-05-16
 # At release time, fill in the Zenodo DOI assigned for this version:
 # doi: 10.5281/zenodo.XXXXXXXX
-repository-code: "https://github.com/USER/REPO"
+repository-code: "https://github.com/JackDMenendez/dcl-generator-zoo"
 license: MIT
+references:
+  - type: article
+    title: "Geometry First: Quantum Mechanics, Gravity, and the Origin of the Standard Model from a Single Conservation Law"
+    authors:
+      - family-names: Menendez
+        given-names: Jack
+    doi: 10.5281/zenodo.20078529
+    year: 2026
+    notes: "Paper I of the A=1 Discrete Causal Lattice series.  Establishes the bipartite octahedral lattice, the A=1 conservation axiom, and the per-site C^12 amplitude extension that the centralizer enumeration of this zoo is built on."
+  - type: article
+    title: "Geometry Forces Physics: A Lie-Algebra Derivation of the Standard Model Gauge Group from a Single Conservation Law"
+    authors:
+      - family-names: Menendez
+        given-names: Jack
+    doi: 10.5281/zenodo.20240736
+    year: 2026
+    notes: "Paper II of the series.  Phase 3 of Paper II established the 71-dim per-site centralizer enumeration that this zoo catalogues; the zoo extends it with stable names, irrep tagging, and JSON/LaTeX rendering for downstream consumption."

@@ -1,22 +1,27 @@
 % ============================================================
-% audit_table.tex
+% audit_table.tex -- dcl-generator-zoo
 %
-% A "system audit" table mapping the paper's claims to the evidence
-% backing each one.  This is *the* canonical source of truth for which
-% claims are PASS / PART / STUB / FAIL --- prose elsewhere in the paper
-% should not contradict it.
+% Catalogue audit: which catalogue features are PASS / PART / STUB.
+%
+% Rows split into two groups:
+%   (1) "Inherited" rows whose algebraic content is verified by the
+%       Paper~II Phase~3 scripts reproduced verbatim in
+%       src/utilities/ (these are PASS in this zoo because they
+%       were PASS in Paper~II).
+%   (2) "Zoo-specific" rows whose evidence is new in this catalogue
+%       (stable naming, irrep tagging, JSON emit, LaTeX renderer,
+%       bracket-class lookup, conjectural decoherence-channel
+%       labels).  These start STUB in v0.1 and flip as Phase~2
+%       lands.
 %
 % Status semantics (paste into the abstract or front-matter as well):
-%   PASS  -- derivation complete or experiment confirms the claim to
+%   PASS  -- derivation complete or script confirms the claim to
 %            stated precision.
 %   PART  -- mechanism demonstrated, full quantitative match pending;
 %            specific gaps documented in the evidence column.
 %   STUB  -- analytical result with no numerical confirmation yet,
-%            or planned experiment not yet run.
+%            or planned script not yet written.
 %   FAIL  -- tested and disconfirmed.
-%
-% Use \texttt{} for code/experiment names and file paths inside cells.
-% Long cells are fine -- the column widths are tuned for prose.
 % ============================================================
 
 \label{tab:audit}
@@ -24,43 +29,172 @@
 {\scriptsize
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{0.95}
-\begin{longtable}{@{}p{2.6cm}p{3.8cm}p{3.2cm}p{4.4cm}p{1.0cm}@{}}
-\caption{\small System audit: paper claims mapped to supporting
-derivations and experiments.  Status semantics in the front-matter
-(\texttt{PASS} / \texttt{PART} / \texttt{STUB} / \texttt{FAIL}).}
+\begin{longtable}{@{}p{3.4cm}p{4.0cm}p{4.6cm}p{1.0cm}@{}}
+\caption{\small Catalogue audit for the dcl-generator-zoo.  Rows in
+the first block (``inherited'') are algebraic results established by
+Paper~II Phase~3 and reproduced here verbatim via the scripts under
+\texttt{src/utilities/}.  Rows in the second block (``zoo-specific'')
+are catalogue features new in this artifact.  Status semantics in the
+front-matter (\texttt{PASS} / \texttt{PART} / \texttt{STUB} /
+\texttt{FAIL}).}
 \label{tab:audit_caption} \\
 \hline
-\textbf{Claim} & \textbf{Mechanism} & \textbf{Continuum / formal limit} & \textbf{Evidence} & \textbf{Status} \\
+\textbf{Claim} & \textbf{Mechanism} & \textbf{Evidence} & \textbf{Status} \\
 \hline
 \endfirsthead
 
-\multicolumn{5}{l}{\textit{(Table~\ref{tab:audit}, continued from previous page)}} \\
+\multicolumn{4}{l}{\textit{(Table~\ref{tab:audit}, continued from previous page)}} \\
 \hline
-\textbf{Claim} & \textbf{Mechanism} & \textbf{Continuum / formal limit} & \textbf{Evidence} & \textbf{Status} \\
+\textbf{Claim} & \textbf{Mechanism} & \textbf{Evidence} & \textbf{Status} \\
 \hline
 \endhead
 
 \hline
-\multicolumn{5}{r}{\textit{(continued on next page)}} \\
+\multicolumn{4}{r}{\textit{(continued on next page)}} \\
 \endfoot
 
 \hline
 \endlastfoot
 
-% ── Example row 1 (replace with a real claim) ───────────────────────
-Example claim, fully derived
-    & One-line summary of the mechanism
-    & The standard / continuum statement it reduces to
-    & Derived analytically (\S\ref{subsec:cross_ref_example}, Eq.~\ref{eq:example_identity})
+% ── INHERITED FROM PAPER II PHASE 3 ─────────────────────────────────
+\multicolumn{4}{l}{\textit{Inherited from Paper~II~\cite{menendez2026sm} Phase~3 (reproduced verbatim).}} \\
+\hline
+
+Centralizer dimension is 71
+    & Enumerate the 143-element Pauli\,$\otimes$\,Pauli\,$\otimes$\,Gell-Mann
+      tensor basis of $\mathfrak{su}(12)$; count basis elements
+      commuting with $\sigma_x \otimes I_2 \otimes I_3$
+    & \texttt{src/utilities/automorphism\_centralizer\_extended.py}
+      reports 71, matching $\dim(\mathfrak{u}(6) \oplus
+      \mathfrak{u}(6)) - 1$
     & \texttt{PASS} \\
 
-% ── Example row 2 (replace with a real claim) ───────────────────────
-Example claim, partial evidence
-    & One-line summary
-    & The target statement
-    & \texttt{exp\_XX}: describe the gap concretely (e.g.\ ``mechanism
-      reproduced; quantitative match pending higher-resolution run'')
+SM gauge subalgebra has dim 12 inside the centralizer
+    & $1$ ($J_1$) $+\,3$ ($\mathfrak{su}(2)_W$) $+\,8$
+      ($\mathfrak{su}(3)_c$); verify each is in the centralizer
+    & Same script, Step~2; 12 of 14 conjecture Hermitian generators
+      are in the centralizer ($J_2, J_3$ are continuum-emergent)
+    & \texttt{PASS} \\
+
+Extras count is 59, with breakdown 24 + 3 + 8 + 24
+    & Iso--colour mixings (24), chirality-$\sigma_x$ + isospin (3),
+      chirality-$\sigma_x$ + colour (8), chirality-$\sigma_x$ +
+      iso--colour (24)
+    & Same script, Step~3; counts match predictions
+    & \texttt{PASS} \\
+
+71-dim centralizer is
+$\mathfrak{su}(6)_+ \oplus \mathfrak{su}(6)_- \oplus \mathfrak{u}(1)$
+    & $\sigma_x$-eigenbasis decomposition $\mathbb{C}^{12} =
+      \mathbb{C}^6_+ \oplus \mathbb{C}^6_-$; centralizer is
+      block-diagonal $\mathfrak{u}(6)_\pm$
+    & \texttt{notes/aut\_centralizer\_enumeration.md}; structural
+      reading is derivable directly from eigenspace dimensions
+    & \texttt{PASS} \\
+
+$(\mathbf{8}, \mathbf{3})$ + chirality-shadow SM
+decomposition of the 59 extras under $SU(3) \times SU(2)$
+    & $\mathbf{35} = (\mathbf{8}, \mathbf{1}) \oplus (\mathbf{1},
+      \mathbf{3}) \oplus (\mathbf{8}, \mathbf{3})$ branching of
+      $\mathfrak{su}(6)$ adjoint; applied to each chirality block
+    & \texttt{notes/aut\_centralizer\_enumeration.md};
+      48 leptoquark-flavoured + 11 chirality-twisted SM-flavoured =
+      59
+    & \texttt{PASS} \\
+
+$[\text{extras}, \text{SM}]$ never lands in SM (extras is an
+SM-invariant module)
+    & Compute all 708 brackets symbolically; classify
+      zero/in\_SM/in\_extras/mixed by rank in the SM basis
+    & \texttt{src/utilities/aut\_centralizer\_extras\_commutators.py}
+      reports 256 zero, 0 in\_SM, 452 in\_extras
+    & \texttt{PASS} \\
+
+$[\text{extras}, \text{extras}]$ has SM components (extras is not a
+Lie ideal)
+    & Compute all 1711 $\binom{59}{2}$ brackets; classify by
+      span membership
+    & Same script, Step~4b; 339 zero, 178 in\_SM, 1146 in\_extras,
+      48 mixed
+    & \texttt{PASS} \\
+
+% ── ZOO-SPECIFIC ────────────────────────────────────────────────────
+\hline
+\multicolumn{4}{l}{\textit{Zoo-specific catalogue features (new in this artifact).}} \\
+\hline
+
+Stable name for each of the 71 generators
+    & Persistent identifier (\texttt{G\_01} .. \texttt{G\_71})
+      ordered by SM block first then extras categories; preserved
+      across catalogue revisions
+    & \texttt{src/utilities/generator\_zoo.py} (\texttt{build\_catalogue()});
+      naming-order rationale in docstring; awaits user-side first run
     & \texttt{PART} \\
+
+Tensor-factor 3-bit action tag (chirality, isospin, colour) per
+generator
+    & For each generator, record which of the three
+      $\mathbb{C}^2 \otimes \mathbb{C}^2 \otimes \mathbb{C}^3$
+      tensor factors it acts on non-trivially
+    & \texttt{src/utilities/generator\_zoo.py}
+      (\texttt{derive\_factor\_tag()}); derived from tensor signature
+      already in \texttt{automorphism\_centralizer\_extended.py}
+    & \texttt{PART} \\
+
+$(SU(3), SU(2))$ irrep tag per generator
+    & Irrep tag from the
+      $\mathbf{35} = (\mathbf{8}, \mathbf{1}) + (\mathbf{1},
+      \mathbf{3}) + (\mathbf{8}, \mathbf{3}) + (\mathbf{1},
+      \mathbf{1})$ branching, projected per generator
+    & \texttt{src/utilities/generator\_zoo.py}
+      (\texttt{derive\_irrep()}); informally used in
+      \texttt{notes/aut\_centralizer\_extras\_commutators.md}
+    & \texttt{PART} \\
+
+Bracket-class lookup table for every pair $(X, Y)$ of centralizer
+generators
+    & Extend the $59 \times 12$ + $\binom{59}{2}$ bracket
+      classification of Paper~II to the full $\binom{71}{2} = 2485$
+      table and emit a lookup
+    & \texttt{src/utilities/generator\_zoo.py}
+      (\texttt{classify\_all\_brackets()}); imports
+      \texttt{rank\_of\_matrices} / \texttt{is\_in\_span} from the
+      inherited Paper~II commutator script
+    & \texttt{PART} \\
+
+JSON catalogue emit for machine-readable downstream consumption
+    & Generator zoo writes
+      \texttt{data/generator\_catalogue.json} with one record per
+      generator (name, tensor signature, factor tag, irrep tag,
+      SM classification) plus the full bracket-class table
+    & \texttt{src/utilities/generator\_zoo.py}
+      (\texttt{emit\_json()}); schema version 1; JSON file is
+      written on first run
+    & \texttt{PART} \\
+
+\LaTeX{} longtable renderer for the catalogue appendix
+    & Generator zoo also emits a \LaTeX{} fragment that the paper's
+      appendix \texttt{\textbackslash input}s; \texttt{IfFileExists}
+      placeholder ensures the build succeeds even before the
+      script's first run
+    & \texttt{src/utilities/generator\_zoo.py}
+      (\texttt{emit\_latex\_longtable()}); appendix section
+      \texttt{paper/sections/generator\_zoo.tex} hand-written;
+      the table proper \texttt{paper/sections/generator\_zoo\_table.tex}
+      is auto-generated
+    & \texttt{PART} \\
+
+Conjectural decoherence-channel labels
+    & Per-generator label flagging the
+      decoherence-as-projection conjecture of
+      \texttt{notes/extras\_as\_a1\_accounting.md}
+    & Conjecture itself is \texttt{DRAFT} (see note); labels are
+      out of scope for v0.1.  The per-generator records do carry
+      a \texttt{sm\_class} field (\texttt{SM} / \texttt{extras})
+      and a \texttt{sm\_subgroup} field which a downstream
+      decoherence-channel consumer can read; the *physical-role*
+      labels are deferred per \texttt{feedback\_let\_formalism\_mature}
+    & \texttt{STUB} \\
 
 \hline
 \end{longtable}

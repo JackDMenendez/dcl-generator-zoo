@@ -1,7 +1,49 @@
 % code_and_data.tex
 \label{sec:code_and_data}
 
-\placeholder{Describe what is in the companion repository: directory
-layout, how to inspect the data files, where the figure-generating
-scripts live. The aim is that a reader can reproduce or audit any claim
-in the paper from this appendix plus the linked DOI.}
+\subsection{Repository layout}
+
+The catalogue's source tree is laid out as follows:
+
+\begin{itemize}
+\item \texttt{src/utilities/automorphism\_centralizer\_extended.py}
+  -- Paper~II Phase~3 centralizer enumeration, reproduced verbatim.
+  Builds the 143-element Pauli\,$\otimes$\,Pauli\,$\otimes$\,Gell-Mann
+  tensor basis of $\mathfrak{su}(12)$, filters to the 71-dim
+  centralizer of the bipartite tick rule, classifies into 7
+  tensor-signature categories.
+\item \texttt{src/utilities/aut\_centralizer\_extras\_commutators.py}
+  -- Paper~II Phase~3 bracket-classification script, reproduced
+  verbatim.  Computes all 708 $[\text{extras}, \text{SM}]$ brackets
+  and 1711 $[\text{extras}, \text{extras}]$ brackets, classifies
+  each as zero / in\_SM / in\_extras / mixed.
+\item \texttt{src/utilities/generator\_zoo.py} (planned for
+  v1.0) -- the catalogue script proper.  Extends the two
+  inherited scripts above with stable per-generator names, an
+  $(SU(3), SU(2))$ irrep tag, a 3-bit tensor-factor action tag,
+  and a bracket-class lookup; emits a JSON catalogue and a
+  \LaTeX{} longtable fragment.
+\item \texttt{data/generator\_catalogue.json} (planned for v1.0)
+  -- machine-readable emit of the catalogue, one record per
+  generator.
+\item \texttt{notes/} -- four Paper~II notes reproduced with
+  Provenance prefixes, providing the textual companion to the
+  inherited scripts.
+\item \texttt{paper/sections/generator\_zoo.tex} (planned for v1.0)
+  -- the catalogue appendix proper (longtable + reader's map).
+\end{itemize}
+
+\subsection{Reproducing the v0.1 audit table}
+
+Every \texttt{PASS} row in Table~\ref{tab:audit} is reproduced by:
+
+\begin{verbatim}
+python -u src/utilities/automorphism_centralizer_extended.py
+python -u src/utilities/aut_centralizer_extras_commutators.py
+\end{verbatim}
+
+The two scripts run independently; each prints a structured report
+of the centralizer dimension, the SM-aligned vs extras split, and
+the bracket-classification counts.  Total runtime is on the order
+of minutes on a modern laptop (the second script computes 2419
+symbolic $12 \times 12$ commutators and classifies each by rank).

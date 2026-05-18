@@ -1,9 +1,18 @@
 # data/
 
-Data files produced and consumed by experiments.
+Data files produced and consumed by experiments, and the
+machine-readable catalogue emitted by the generator zoo.
 
 ## What goes here
 
+- **`generator_catalogue.json`** -- the canonical machine-readable
+  catalogue of the 71-dim per-site automorphism algebra, written by
+  `src/utilities/generator_zoo.py`.  Downstream tooling that
+  consumes the zoo should read this file rather than scraping the
+  `paper/sections/generator_zoo_table.tex` longtable.  Schema
+  documented in the docstring of `generator_zoo.py`; current
+  `schema_version` is `1`.  Tracked in git -- it is the
+  human-citeable artifact of each catalogue release.
 - `*.npy` -- NumPy arrays produced by experiment scripts.
 - `*.log` -- stdout captures from long-running experiments.
 - `*.csv` -- tabular results that downstream figures read.

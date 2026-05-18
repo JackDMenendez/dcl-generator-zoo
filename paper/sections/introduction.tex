@@ -1,67 +1,74 @@
 % introduction.tex
-% EXEMPLAR section showing the patterns used throughout the template:
-%   - top comment header naming the section and (where applicable) the
-%     experiments / derivations it depends on
-%   - \label{sec:...} immediately after the section start in main.tex
-%   - subsection labels of the form \label{subsec:...}
-%   - cross-references via \ref{} / \autoref{}
-%   - figure include via \input{...} of a figure-fragment file
-%   - bibliography citations with \cite{key}
-%   - audit-table reference to Table~\ref{tab:audit}
-%
-% Replace the prose with your own; keep the labelling and cross-reference
-% conventions.
 
 \label{sec:introduction}
 
-\placeholder{One- or two-paragraph orientation: what problem the paper
-addresses, why existing approaches fall short, and what the paper's
-contribution is. The introduction should be readable without the reader
-having internalised any framework-specific notation yet.}
+This document is the companion catalogue to Paper~II of the A=1
+Discrete Causal Lattice series~\cite{menendez2026sm}, which
+established Eq.~(137) of Paper~I~\cite{menendez2026geometry} as a
+structural-equality conjecture between the per-site automorphism
+algebra of the bipartite octahedral lattice and the Lie algebra
+$\mathfrak{so}(3,1) \oplus \mathfrak{su}(3) \oplus \mathfrak{su}(2)
+\oplus \mathfrak{u}(1)$.  Paper~II's Phase~3 enumeration produced
+the sharper result that the discrete-Hermitian centralizer of the
+bipartite tick rule on the per-site $\mathbb{C}^{12}$ amplitude has
+dimension~71, with structural decomposition $\mathfrak{su}(6)_+
+\oplus \mathfrak{su}(6)_- \oplus \mathfrak{u}(1)$.  The
+12-dimensional Standard Model gauge subalgebra is contained in
+this centralizer; the remaining 59 generators are the
+``extras''~\cite{georgi1999lie}, structurally $(\mathbf{8},
+\mathbf{3})$ leptoquark-flavoured plus chirality-$\sigma_x$-twisted
+SM-flavoured.
+
+That count -- 12 SM, 59 extras, 71 total -- is the input to this
+catalogue.  Paper~II's prose treats the 59 extras at the level of
+their representation-theoretic content and their bracket structure;
+it does not give them individual names, irrep tags per generator,
+or a machine-readable form that downstream papers can consume
+without re-running the enumeration.  This zoo fills that gap.
 
 \subsection{Scope}
 \label{subsec:scope}
 
-\placeholder{What is in scope for this paper, and what is explicitly
-deferred to companion papers or follow-on work. Reference the audit
-table (Table~\ref{tab:audit}) if you maintain one --- it is the
-canonical answer to ``has this claim been verified yet?''}
+What this document is:
 
-%% The audit table is included here so the reader meets it before any
-%% claim that depends on a status entry.  Move it elsewhere (e.g. into
-%% a "Predictions" section) if that fits the paper better.  Delete this
-%% \input if you are not maintaining an audit table.
+\begin{itemize}
+\item A \emph{catalogue}, not a paper of new results.  All
+      algebraic content is inherited from Paper~II Phase~3.
+\item A persistent \emph{naming convention} for each of the 71
+      centralizer generators.  Names are stable across catalogue
+      revisions so that follow-on papers can cite generators by
+      name.
+\item A \emph{taxonomy} along several orthogonal axes (source
+      $\mathfrak{su}(6)$ factor; $(SU(3), SU(2))$ irrep content;
+      tensor-factor action; bracket class against every other
+      generator).
+\item A \emph{machine-readable emit} (JSON) plus a printable
+      longtable rendering, so external work can consume the
+      catalogue either programmatically or by reading.
+\end{itemize}
+
+What this document is not:
+
+\begin{itemize}
+\item A re-derivation of Paper~II Phase~3.  The dimensional and
+      structural results are cited, not re-proved here.
+\item A statement of physical interpretation.  The
+      decoherence-channel hypothesis of Paper~II's
+      \texttt{notes/extras\_as\_a1\_accounting.md} (DRAFT) is
+      reproduced as an appendix note, marked clearly as
+      conjectural; the catalogue itself records only the algebraic
+      facts.
+\item A successor to Paper~II.  This is companion infrastructure,
+      not a Paper~III.
+\end{itemize}
+
+Table~\ref{tab:audit} records the catalogue's audit-row status.
+Most rows inherit \texttt{PASS} from Paper~II Phase~3; the rows
+specific to the zoo's value-add (stable naming, irrep tagging,
+JSON emit, LaTeX renderer) are \texttt{STUB} in the v0.1 draft and
+will flip to \texttt{PART}/\texttt{PASS} as Phase~2 of this
+catalogue is executed.
+
+%% Audit table embedded here so the reader meets it before any
+%% claim that depends on a status entry.
 \input{sections/audit_table}
-
-\subsection{A Worked Cross-Reference Example}
-\label{subsec:cross_ref_example}
-
-A statement supported by an external citation looks like this~\cite{example2024}.
-A statement supported by an in-paper derivation looks like this
-(see~\autoref{subsec:scope}).  An equation that is referenced
-elsewhere is given a label:
-%
-\begin{equation}
-    \label{eq:example_identity}
-    e^{i\pi} + 1 = 0.
-\end{equation}
-%
-Equation~\eqref{eq:example_identity} is referenced by label, not by
-hard-coded number.
-
-\subsection{A Worked Figure-Include Example}
-\label{subsec:figure_example}
-
-Figures live in \texttt{paper/figures/} (or in the repo-root
-\texttt{figures/} directory if the figure is shared with experiments).
-The standard pattern is to keep the \verb|\includegraphics| line and the
-caption in a small fragment file under \texttt{paper/figures/}, then
-\verb|\input| that fragment from inside a \verb|figure| environment
-here.  See \texttt{paper/figures/example\_figure.tex} for the template;
-once you replace the placeholder with a real figure, uncomment the
-include block below.
-
-% \begin{figure}[H]
-%     \centering
-%     \input{figures/example_figure}
-% \end{figure}

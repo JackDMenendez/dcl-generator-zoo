@@ -1,8 +1,16 @@
 numpy
 matplotlib
 pytest
+sympy
+
+# sympy is required by the load-bearing centralizer enumeration scripts
+# inherited from Paper~II (Phase~3):
+#   src/utilities/automorphism_centralizer_extended.py
+#   src/utilities/aut_centralizer_extras_commutators.py
+# Both build the 12x12 Hermitian tensor-product basis of su(12)
+# symbolically and verify the 71-dim centralizer dimension.
 
 # Pin specific versions in a separate file (e.g. requirements.lock.txt)
 # once the environment is stable.  Add other dependencies as the project
-# develops -- e.g. scipy, sympy, networkx, pandas, seaborn -- but keep
+# develops -- e.g. scipy, networkx, pandas, seaborn -- but keep
 # this file minimal so a fresh clone can install quickly.
